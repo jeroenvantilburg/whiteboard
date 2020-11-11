@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Online whiteboard</title>
+  <meta charset="UTF-8">
+  <meta name="description" content="Online whiteboard">
+  <meta name="keywords" content="whiteboard, drawing, smartboard, online, activepanel, paint, touchscreen">
+  <meta name="author" content="Jeroen van Tilburg">
+  <meta name="viewport" content="width=930">
+  <!--meta property="og:image" content="https://jeroenvantilburg.nl/whiteboard/screenshot.png" /-->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://jeroenvantilburg.nl/whiteboard/" />
+  <meta property="og:title" content="Online whiteboard" />
+  <meta property="og:description" content="Online drawing board. Ideal for making drawings by hand using a touch screen, pen, or finger. Works well with smartboards in your classroom." />
+  <!--link rel="apple-touch-icon-precomposed" sizes="57x57" href="favicon-apple-touch-114.png">
+  <link rel="apple-touch-icon-precomposed" sizes="114x114" href="favicon-apple-touch-114.png">
+  <link rel="apple-touch-icon-precomposed" sizes="72x72" href="favicon-apple-touch-144.png">
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="favicon-apple-touch-144.png">
+  <link rel="icon" type="image/vnd.microsoft.icon" sizes="32x32 48x48" href="favicon.ico">
+  <link rel="icon" sizes="128x128" href="favicon.icns">
+  <link rel="icon" href="favicon.png" type="image/x-icon"-->
+  <link rel="stylesheet" type="text/css" href="style.css" media="screen,projection" />
+  <base target="_blank">
+</head>
+<body>
+  
+  <div style="display: inline-block; margin-left: 10px">
+    <button id="dragmode" class="btn btn-info">Dragmode</button>
+    <button id="pencil" class="btn btn-info">Pencil</button>
+    <button id="pointer" class="btn btn-info">Pointer</button>
+    <button id="eraser" class="btn btn-info">Eraser</button>
+    <button id="clear-canvas" class="btn btn-info">Clear</button>
+    <button id="undo" class="btn btn-info">Undo</button>
+    <button id="redo" class="btn btn-info">Redo</button>
+
+    <label for="drawing-line-width">Width:</label>
+    <span class="info">3</span><input type="range" value="3" min="0" max="10" id="drawing-line-width">
+
+    <button id="black" class="btn color" style="background-color:black">B</button>
+    <button id="red" class="btn color" style="background-color:red">R</button>
+    <button id="green" class="btn color" style="background-color:green">G</button>
+    <button id="blue" class="btn color" style="background-color:blue">B</button>
+    <button id="yellow" class="btn color" style="background-color:yellow">Y</button>
+    <button id="white" class="btn color" style="background-color:white">W</button>
+    <label for="drawing-color">Color:</label>
+    <input type="color" value="#000000" id="drawing-color">
+  
+    <label for="background">Background</label>
+    <button id="blackBkg" class="btn color" id="background" style="background-color:black">B</button>
+    <button id="whiteBkg" class="btn color" id="background" style="background-color:white">W</button>
+    <button id="blackBkgR" style="padding: 0px 0px;"><img src="img/zwart_rooster_klein.png" width="25" height="25" ></button>
+    <button id="whiteBkgR" style="padding: 0px 0px;"><img src="img/wit_rooster_klein.png" width="25" height="25" ></button>
+
+    <a href="" onclick="screenshot(this)">Screenshot</a>
+  </div>
+
+   <div id="canvas1" style="position:relative;width:100px;height:100px;top:0px; left:0px">
+      <canvas id="c" width="100" height="100" style="border:1px solid #ccc;
+                                                     position: absolute!important;
+                                                     left: 0!important;
+                                                     top: 0!important;
+                                                     width: 100%!important;
+                                                     height: 100%!important;">
+        Your browser does not support HTML5 Canvas.
+      </canvas>
+      <canvas id="cursor" width="100" height="100" style="border:1px solid #ccc; 
+                                                           position: absolute!important;
+                                                           left: 0!important;
+                                                           top: 0!important;
+                                                           width: 100%!important;
+                                                           height: 100%!important;
+                                                           pointer-events: none!important;">
+     </canvas>
+   </div>
+
+  <script src="scripts/fabric.min.js"></script>
+  <script src="scripts/jquery-3.5.0.min.js"></script>
+  <script src="scripts/whiteboard.js"></script>
+  <noscript>Your browser does not support JavaScript!</noscript> 
+</body>
+</html>
