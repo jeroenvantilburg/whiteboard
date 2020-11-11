@@ -36,10 +36,10 @@ var mouseDown = false;
 var deleteMode = false;
 
   
-  fabric.Object.prototype.transparentCorners = false;
-  fabric.Object.prototype.hasControls = false;
-  fabric.Object.prototype.hasBorders = false;
-  fabric.Object.prototype.padding = 10;
+fabric.Object.prototype.transparentCorners = false;
+fabric.Object.prototype.hasControls = false;
+fabric.Object.prototype.hasBorders = false;
+fabric.Object.prototype.padding = 10;
 
   
   // Eraser stuff
@@ -57,9 +57,8 @@ var deleteMode = false;
   });
     
   function erasing(mouse){
-    let objects = canvas.getObjects(); //return Array<objects>
+    let objects = canvas.getObjects(); 
     objects.forEach(object=>{
-      //object.lockMovementX = true; object.lockMovementY = true
       
       //console.log(object);
       
@@ -74,15 +73,9 @@ var deleteMode = false;
       mouseP.x += object.pathOffset.x;
       mouseP.y += object.pathOffset.y ;
 
-      //console.log( object.pathOffset.y );
-      //console.log( object.translateY );
-      //console.log(mouseP.y );
       
       for( i = 0; i < path.length; ++i) {
         var point = { x: path[i][1], y: path[i][2] };
-        //var newP = fabric.util.transformPoint(point, object.calcTransformMatrix());
-        //console.log(point);
-        //console.log(newP);
         if( Math.abs(mouseP.x-point.x) < mousecursor.radius/object.scaleX &&
             Math.abs(mouseP.y-point.y) < mousecursor.radius/object.scaleY ) {
           path[i][0]="M";          
@@ -101,7 +94,6 @@ var deleteMode = false;
         object.dirty = true;
         canvas.requestRenderAll();
       }
-      //console.log(path);
    });
   }  
   // end eraser
@@ -137,97 +129,10 @@ var deleteMode = false;
         canvas.trigger('moved');
         cursor.relativePan(delta);
         cursor.trigger('moved');
-        //canvas.requestRenderAll();
-
-        //lastClientX += deltaX;//e.clientX;
-        //lastClientY += deltaY;//e.clientY;
-        //console.log(lastClientX.toString() + " " + lastClientY.toString() );
       isMoving = false;
     }
 
   }
-
-
-  
-  
-
-// Pointer stuff
-/*const STATE_IDLE = 'idle';
-const STATE_PANNING = 'panning';
-fabric.Canvas.prototype.toggleDragMode = function(dragMode) {
-  // Remember the previous X and Y coordinates for delta calculations
-  let lastClientX;
-  let lastClientY;
-  // Keep track of the state
-  let state = STATE_IDLE;
-  // We're entering dragmode
-  if (dragMode) {
-    // Discard any active object
-    this.discardActiveObject();
-    // Set the cursor to 'move'
-    this.defaultCursor = 'move';
-    // Loop over all objects and disable events / selectable. We remember its value in a temp variable stored on each object
-    this.forEachObject(function(object) {
-      object.prevEvented = object.evented;
-      object.prevSelectable = object.selectable;
-      object.evented = false;
-      object.selectable = false;
-    });
-    // Remove selection ability on the canvas
-    this.selection = false;
-    // When MouseUp fires, we set the state to idle
-    this.on('mouse:up', function(e) {
-      state = STATE_IDLE;
-    });
-    // When MouseDown fires, we set the state to panning
-    this.on('mouse:down', (e) => {
-      state = STATE_PANNING;
-      lastClientX = e.e.clientX;
-      lastClientY = e.e.clientY;
-    });
-    // When the mouse moves, and we're panning (mouse down), we continue
-    this.on('mouse:move', (e) => {
-      if (state === STATE_PANNING && e && e.e) {
-        // let delta = new fabric.Point(e.e.movementX, e.e.movementY); // No Safari support for movementX and movementY
-        // For cross-browser compatibility, I had to manually keep track of the delta
-
-        // Calculate deltas
-        let deltaX = 0;
-        let deltaY = 0;
-        if (lastClientX) {
-          deltaX = e.e.clientX - lastClientX;
-        }
-        if (lastClientY) {
-          deltaY = e.e.clientY - lastClientY;
-        }
-        // Update the last X and Y values
-        lastClientX = e.e.clientX;
-        lastClientY = e.e.clientY;
-
-        let delta = new fabric.Point(deltaX, deltaY);
-        this.relativePan(delta);
-        this.trigger('moved');
-      }
-    });
-  } else {
-    // When we exit dragmode, we restore the previous values on all objects
-    this.forEachObject(function(object) {
-      object.evented = (object.prevEvented !== undefined) ? object.prevEvented : object.evented;
-      object.selectable = (object.prevSelectable !== undefined) ? object.prevSelectable : object.selectable;
-    });
-    // Reset the cursor
-    this.defaultCursor = 'default';
-    // Remove the event listeners
-    this.off('mouse:up');
-    this.off('mouse:down');
-    this.off('mouse:move');
-    // Restore selection ability on the canvas
-    this.selection = true;
-    
-  }
-};
-  */
- 
   
   let dragMode = false;
   
@@ -474,9 +379,6 @@ fabric.Canvas.prototype.toggleDragMode = function(dragMode) {
     if( mousecursor.canvas ) {
       erasing( mouse );
     } else if( dragMode ) {
-      
-      //console.log(evt.e.type);
-      //console.log(evt.e);
       if( evt.e.type == "mousedown") {
         lastClientX = evt.e.clientX;
         lastClientY = evt.e.clientY;
@@ -484,29 +386,17 @@ fabric.Canvas.prototype.toggleDragMode = function(dragMode) {
         lastClientX = evt.e.touches[0].clientX;
         lastClientY = evt.e.touches[0].clientY;
       }
-      //moveCanvas( mouse );
     }
     
     
   });
   
   canvas.on('selection:created', function(e) {
-  
-    /*console.log(e.target);
-    if( e.target._objects ) {
-      console.log(e.target._objects);
-    } */
-    //console.log(e.target.get('type'));
-    
-    deleteMode = true;
-    dom('pointer').innerHTML = "Delete";
-    
-    
+    setDeleteMode(true);
   });
 
   canvas.on('selection:cleared', function(e) {    
-    deleteMode = false;
-    dom('pointer').innerHTML = "Pointer";
+    setDeleteMode(false);
   });
 
 
@@ -516,46 +406,14 @@ fabric.Canvas.prototype.toggleDragMode = function(dragMode) {
       // put circle off screen
       mousecursor
         .set({
-          top: -10000, //mousecursor.originalState.top,
-          left: -10000 //mousecursor.originalState.left
+          top: -10000, 
+          left: -10000 
         })
        .setCoords()
        .canvas.renderAll();
     }
   });
 
-
-
-// Create the canvas
-
-//let canvas = new fabric.Canvas('fabric')
-//canvas.backgroundColor = '#f1f1f1';
-
-// Add a couple of rects
-
-/*let rect = new fabric.Rect({
-  width: 100,
-  height: 100,
-  fill: '#f00'
-});
-canvas.add(rect)
-
-rect = new fabric.Rect({
-  width: 200,
-  height: 200,
-  top: 200,
-  left: 200,
-  fill: '#f00'
-});
-canvas.add(rect)
-*/
-// Handle dragmode change
-//let dragMode = false;
-/*dom('dragmode').onclick = function() {
-  //dragMode = !dragMode;
-  canvas.toggleDragMode(true);
-  canvas.isDrawingMode = false;
-}*/
   
   // Make a screenshot
   function screenshot(htmlElement) {
@@ -565,7 +423,6 @@ canvas.add(rect)
   }  
     
   // Event listener for resizing the window
-  //window.addEventListener('resize', resizeCanvas, false);
   $(window).resize( resizeCanvas );
   function resizeCanvas() {    
     var divCanvas = document.getElementById("canvas1");
@@ -578,7 +435,6 @@ canvas.add(rect)
       cursor.renderAll();
     }
     var newHeight = window.innerHeight-50;
-    //console.log(newHeight);
     if( newHeight > 100 ) { // minimum size needs to stay at 100px
       divCanvas.style.height = newHeight;
       canvas.setHeight(newHeight);
@@ -586,93 +442,7 @@ canvas.add(rect)
       cursor.setHeight(newHeight);
       cursor.renderAll();
     }
-
   }
-  
-  
-  //console.log(canvas);
-  
-  
-  // Eraser stuff
-  /*var canvas2=dom("c");
-var ctx=canvas2.getContext("2d");
-var lastX;
-var lastY;
-var strokeColor="red";
-var strokeWidth=5;
-var mouseX;
-var mouseY;
-var canvasOffset=$("#c").offset();
-var offsetX=canvasOffset.left;
-var offsetY=canvasOffset.top;
-var isMouseDown=false;
-
-
-function handleMouseDown(e){
-  mouseX=parseInt(e.clientX-offsetX);
-  mouseY=parseInt(e.clientY-offsetY);
-
-  // Put your mousedown stuff here
-  lastX=mouseX;
-  lastY=mouseY;
-  isMouseDown=true;
-}
-
-function handleMouseUp(e){
-  mouseX=parseInt(e.clientX-offsetX);
-  mouseY=parseInt(e.clientY-offsetY);
-
-  // Put your mouseup stuff here
-  isMouseDown=false;
-}
-
-function handleMouseOut(e){
-  mouseX=parseInt(e.clientX-offsetX);
-  mouseY=parseInt(e.clientY-offsetY);
-
-  // Put your mouseOut stuff here
-  isMouseDown=false;
-}
-
-function handleMouseMove(e){
-  mouseX=parseInt(e.clientX-offsetX);
-  mouseY=parseInt(e.clientY-offsetY);
-
-  // Put your mousemove stuff here
-  if(isMouseDown){
-    ctx.beginPath();
-    if(mode=="pen"){
-      ctx.globalCompositeOperation="source-over";
-      ctx.moveTo(lastX,lastY);
-      ctx.lineTo(mouseX,mouseY);
-      ctx.stroke();     
-    }else{
-      ctx.globalCompositeOperation="destination-out";
-      ctx.arc(lastX,lastY,8,0,Math.PI*2,false);
-      ctx.fill();
-    }
-    lastX=mouseX;
-    lastY=mouseY;
-  }
-}
-
-$("#c").mousedown(function(e){handleMouseDown(e);});
-$("#c").mousemove(function(e){handleMouseMove(e);});
-$("#c").mouseup(function(e){handleMouseUp(e);});
-$("#c").mouseout(function(e){handleMouseOut(e);});
-
-var mode="pen";
-$("#pen").click(function(){ 
-  console.log("pen");
-  mode="pen"; });
-$("#eraser2").click(function(){
-      canvas.isDrawingMode = false;
-    console.log("eraser");
-  mode="eraser"; });
-  
-  // end eraser
-  */
-  
   
   // load all code after the document
   $("document").ready(function(){
