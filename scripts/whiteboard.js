@@ -296,12 +296,20 @@ $("#pencil").mouseup(function(){
     //this.previousSibling.innerHTML = this.value;
   };
 
-  dom('size1').onclick = function() { canvas.freeDrawingBrush.width = 1; };
-  dom('size2').onclick = function() { canvas.freeDrawingBrush.width = 2; };
-  dom('size3').onclick = function() { canvas.freeDrawingBrush.width = 3; };
-  dom('size4').onclick = function() { canvas.freeDrawingBrush.width = 4; };
-  dom('size5').onclick = function() { canvas.freeDrawingBrush.width = 5; };
-  dom('size6').onclick = function() { canvas.freeDrawingBrush.width = 6; };
+  function setBrushSize(size) {
+    canvas.freeDrawingBrush.width = size;
+    //$('.dropdown-content').css('display','none');
+    $('.dropdown').trigger('mouseleave')
+    /*$('#brushSize').css('font-size', size.toString()+'px');*/
+
+  }
+
+  dom('size1').onclick = function() { setBrushSize(1); };
+  dom('size2').onclick = function() { setBrushSize(2); };
+  dom('size3').onclick = function() { setBrushSize(3); };
+  dom('size4').onclick = function() { setBrushSize(4); };
+  dom('size5').onclick = function() { setBrushSize(5); };
+  dom('size6').onclick = function() { setBrushSize(6); };
 
   dom('blackBkg').onclick = function() { 
     canvas.backgroundColor = "black";
