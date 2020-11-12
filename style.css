@@ -3,17 +3,57 @@ html, body, div, canvas {
     padding: 0;
 }
 
+/*.column { }
+.left {float: left; width:360px;}
+.right {}
+.row:after {content: ""; display: table; clear: both; }*/
+/* Responsive layout - makes the two columns stack on top of each other instead of next to each other */
+/*@media screen and (max-width: 1275px) { .left { width: 100%; } .right {max-width: 500px} }*/
+
+
 .btn {
   padding: 0px 0px;
-  margin: 3px 3px;
-  
+  margin: 6px 3px;
+  width: 40px;
+  height: 30px;
+  display: block ;
+  z-index : 1;
+  position:relative;
 }
 
 .color {
   border-radius: 100%;
-  width: 20px;
-  height: 20px;
+  width: 25px;
+  height: 25px;
   padding: 0px 0px;
-  margin: 3px 3px;
-  border: none;
+  margin: 5px 3px;
+  border-style: solid;
+  border-width: 1px;
 }
+
+.bkg {
+  width: 30px;
+  height: 30px;
+  padding: 0px 0px;
+  margin: 5px 3px;
+  border-style: solid;
+  border-width: 1px;
+}
+
+.slider {
+  /*-webkit-appearance: none;  /* Override default CSS styles */
+  /*appearance: none;*/
+  width: 50px; /* Full-width */
+}
+
+/*a.button {
+  -webkit-appearance: button;
+  -moz-appearance: button;
+  appearance: button;
+  width: 40px;
+  height: 40px;
+  text-decoration: none;
+  color: initial;
+  font-family: Arial;
+  font-size: 12px;
+}*/

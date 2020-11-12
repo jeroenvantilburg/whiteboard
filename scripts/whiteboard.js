@@ -270,7 +270,7 @@ fabric.Object.prototype.padding = 10;
   
   dom('drawing-line-width').onchange = function() {
     canvas.freeDrawingBrush.width = parseInt(this.value, 10) || 1;
-    this.previousSibling.innerHTML = this.value;
+    //this.previousSibling.innerHTML = this.value;
   };
 
   dom('blackBkg').onclick = function() { 
@@ -434,7 +434,7 @@ fabric.Object.prototype.padding = 10;
       cursor.setWidth(newWidth);
       cursor.renderAll();
     }
-    var newHeight = window.innerHeight-50;
+    var newHeight = window.innerHeight-2;
     if( newHeight > 100 ) { // minimum size needs to stay at 100px
       divCanvas.style.height = newHeight;
       canvas.setHeight(newHeight);
