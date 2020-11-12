@@ -14,6 +14,29 @@ html, body, div, canvas {
   font-size: 25px;
 }
 
+.btn2 {
+  padding: 0px 0px;
+  margin: 0px 0px;
+  width: 30px;
+  height: 30px;
+  display: inline-block;
+  float:left;
+  z-index : 1;
+  position:relative;
+  font-size: 20px;
+}
+
+
+label.btn {
+  -webkit-appearance: button;
+  -moz-appearance: button;
+  appearance: button;
+  color: black;
+  padding: 0px 3px;
+  width: 24px;
+  height: 30px;
+}
+
 .color {
   border-radius: 100%;
   width: 25px;
@@ -36,7 +59,11 @@ html, body, div, canvas {
 .slider {
   /*-webkit-appearance: none;  /* Override default CSS styles */
   /*appearance: none;*/
+  /*position: relative!important;
+  left: 0;
+  top: -20px;*/
   width: 50px; /* Full-width */
+  /*height: 10px;*/
 }
 
 a.button {
@@ -76,6 +103,7 @@ a.button {
 /* Dropdown content (hidden by default) */
 .dropdown-content {
   display: none;
+
   /*position: absolute;
   background-color: #f9f9f9;
   min-width: 160px;
@@ -83,4 +111,4 @@ a.button {
   z-index: 1;*/
 }
 
-/*.dropdown:hover .dropdown-content {display: block;}*/
+.dropdown:hover .dropdown-content {display: inline;}

@@ -55,19 +55,33 @@
     <button id="dragmode" class="btn btn-info"><i class="fa fa-hand-rock-o"></i></button>
     <button id="pointer" class="btn btn-info"><i class="fa fa-mouse-pointer"></i></button>
 
-    <div class="dropdown" > 
     <button id="pencil" class="btn btn-info"><i class="fa fa-pencil"></i></button>
-          <div class="dropdown-content" id="dropdown-pencil">
 
     <!--label class="btn" for="drawing-line-width">Width:</label-->
     <!--span class="btn info">3</span-->
-    <input type="range" value="3" min="0" max="10" id="drawing-line-width" class="btn slider" style="">
+    <div class="dropdown" > 
+      <button id="" class="btn2 btn-info" style="margin-left: 3px"><i class="fa fa-circle"></i></button>
+      <div class="dropdown-content" id="dropdown-pencil">
+        <button id="size1" class="btn2 btn-info" style="font-size: 3px;"><i class="fa fa-circle"></i></button>
+        <button id="size2" class="btn2 btn-info" style="font-size: 5px;"><i class="fa fa-circle"></i></button>      
+        <button id="size3" class="btn2 btn-info" style="font-size: 7px;"><i class="fa fa-circle"></i></button>      
+        <button id="size4" class="btn2 btn-info" style="font-size: 9px;"><i class="fa fa-circle"></i></button>      
+        <button id="size5" class="btn2 btn-info" style="font-size: 11px;"><i class="fa fa-circle"></i></button>      
+        <button id="size6" class="btn2 btn-info" style="font-size: 13px;"><i class="fa fa-circle"></i></button>      
 
-    <!--label for="drawing-color">Color:</label-->
-    <input class="btn" type="color" value="#000000" id="drawing-color">
+
 
       </div>
-  </div>
+    </div>
+    <input type="range" value="3" min="0" max="10" id="drawing-line-width" class="btn slider" style="visibility: hidden;">
+
+
+
+    <label id="brushcolor" class="btn btn-info"><i class="fa fa-paint-brush"></i>
+      <input class="btn" type="color" value="#000000" id="drawingcolor" style="visibility: hidden;">
+    </label>
+
+
     <button id="black" class="btn color" style="background-color:black"></button>
     <button id="red" class="btn color" style="background-color:red"></button>
     <button id="green" class="btn color" style="background-color:green"></button>
@@ -88,7 +102,7 @@
 
   <!--input type="button" class="btn" onclick="screenshot(this)" value="shot"></input-->
 
-    <a href="" class="btn button" onclick="screenshot(this)"><i class="fa fa-download"></i></a>
+    <a href="" class="btn button" onclick="screenshot(this)"><i class="fa fa-file-image-o"></i></a>
   
   <!--/div>
 

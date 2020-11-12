@@ -215,7 +215,7 @@ fabric.Object.prototype.padding = 10;
     cursor.remove(mousecursor);
   };
 
-var pressTimer;
+/*var pressTimer;
 $("#pencil").mouseup(function(){
   clearTimeout(pressTimer);
   dom("dropdown-pencil").style.display = "none";
@@ -229,6 +229,7 @@ $("#pencil").mouseup(function(){
   },500);
   return false; 
 });
+*/
 
   dom('eraser').onclick = function() { 
     canvas.isDrawingMode = false;
@@ -251,42 +252,56 @@ $("#pencil").mouseup(function(){
     
   };
   
-  dom('drawing-color').onchange = function() {
+  dom('drawingcolor').onchange = function() {
     var brush = canvas.freeDrawingBrush;
     brush.color = this.value;
+    dom("brushcolor").style.color = this.value;
     //console.log(this.value)
   };
 
   dom('black').onclick = function() { 
     canvas.freeDrawingBrush.color = "black";
-    dom('drawing-color').value = "#000000";
+    dom('drawingcolor').value = "#000000";
+    dom("brushcolor").style.color = "black";
   };
   dom('red').onclick = function() { 
     canvas.freeDrawingBrush.color = "red";
-    dom('drawing-color').value = "#FF0000";
+    dom('drawingcolor').value = "#FF0000";
+    dom("brushcolor").style.color = "red";
   };
   dom('green').onclick = function() { 
     canvas.freeDrawingBrush.color = "green";
     //console.log(canvas.freeDrawingBrush.color)
-    dom('drawing-color').value = "#008000";
+    dom('drawingcolor').value = "#008000";
+    dom("brushcolor").style.color = "green";
   };
   dom('blue').onclick = function() { 
     canvas.freeDrawingBrush.color = "blue";
-    dom('drawing-color').value = "#0000FF";
+    dom('drawingcolor').value = "#0000FF";
+    dom("brushcolor").style.color = "blue";
   };
   dom('yellow').onclick = function() { 
     canvas.freeDrawingBrush.color = "yellow";
-    dom('drawing-color').value = "#FFFF00";
+    dom('drawingcolor').value = "#FFFF00";
+    dom("brushcolor").style.color = "yellow";
   };
   dom('white').onclick = function() { 
     canvas.freeDrawingBrush.color = "white";
-    dom('drawing-color').value = "#FFFFFF";
+    dom('drawingcolor').value = "#FFFFFF";
+    dom("brushcolor").style.color = "white";
   };
   
   dom('drawing-line-width').onchange = function() {
     canvas.freeDrawingBrush.width = parseInt(this.value, 10) || 1;
     //this.previousSibling.innerHTML = this.value;
   };
+
+  dom('size1').onclick = function() { canvas.freeDrawingBrush.width = 1; };
+  dom('size2').onclick = function() { canvas.freeDrawingBrush.width = 2; };
+  dom('size3').onclick = function() { canvas.freeDrawingBrush.width = 3; };
+  dom('size4').onclick = function() { canvas.freeDrawingBrush.width = 4; };
+  dom('size5').onclick = function() { canvas.freeDrawingBrush.width = 5; };
+  dom('size6').onclick = function() { canvas.freeDrawingBrush.width = 6; };
 
   dom('blackBkg').onclick = function() { 
     canvas.backgroundColor = "black";
@@ -318,7 +333,7 @@ $("#pencil").mouseup(function(){
   
     
   if (canvas.freeDrawingBrush) {
-    canvas.freeDrawingBrush.color = dom('drawing-color').value;
+    canvas.freeDrawingBrush.color = dom('drawingcolor').value;
     canvas.freeDrawingBrush.width = parseInt(dom('drawing-line-width').value, 10) || 1;
   }
       
