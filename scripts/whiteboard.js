@@ -252,43 +252,43 @@ $("#pencil").mouseup(function(){
     
   };
   
-  dom('drawingcolor').onchange = function() {
+  /*dom('drawingcolor').onchange = function() {
     var brush = canvas.freeDrawingBrush;
     brush.color = this.value;
-    dom("brushcolor").style.color = this.value;
+    //dom("brushcolor").style.color = this.value;
     //console.log(this.value)
-  };
+  };*/
 
   dom('black').onclick = function() { 
     canvas.freeDrawingBrush.color = "black";
-    dom('drawingcolor').value = "#000000";
-    dom("brushcolor").style.color = "black";
+    //dom('drawingcolor').value = "#000000";
+    //dom("brushcolor").style.color = "black";
   };
   dom('red').onclick = function() { 
     canvas.freeDrawingBrush.color = "red";
-    dom('drawingcolor').value = "#FF0000";
-    dom("brushcolor").style.color = "red";
+    //dom('drawingcolor').value = "#FF0000";
+    //dom("brushcolor").style.color = "red";
   };
   dom('green').onclick = function() { 
     canvas.freeDrawingBrush.color = "green";
     //console.log(canvas.freeDrawingBrush.color)
-    dom('drawingcolor').value = "#008000";
-    dom("brushcolor").style.color = "green";
+    //dom('drawingcolor').value = "#008000";
+    //dom("brushcolor").style.color = "green";
   };
   dom('blue').onclick = function() { 
     canvas.freeDrawingBrush.color = "blue";
-    dom('drawingcolor').value = "#0000FF";
-    dom("brushcolor").style.color = "blue";
+    //dom('drawingcolor').value = "#0000FF";
+    //dom("brushcolor").style.color = "blue";
   };
   dom('yellow').onclick = function() { 
     canvas.freeDrawingBrush.color = "yellow";
-    dom('drawingcolor').value = "#FFFF00";
-    dom("brushcolor").style.color = "yellow";
+    //dom('drawingcolor').value = "#FFFF00";
+    //dom("brushcolor").style.color = "yellow";
   };
   dom('white').onclick = function() { 
     canvas.freeDrawingBrush.color = "white";
-    dom('drawingcolor').value = "#FFFFFF";
-    dom("brushcolor").style.color = "white";
+    //dom('drawingcolor').value = "#FFFFFF";
+    //dom("brushcolor").style.color = "white";
   };
   
   dom('drawing-line-width').onchange = function() {
@@ -299,7 +299,7 @@ $("#pencil").mouseup(function(){
   function setBrushSize(size) {
     canvas.freeDrawingBrush.width = size;
     //$('.dropdown-content').css('display','none');
-    $('.dropdown').trigger('mouseleave')
+    $('.dropdown').trigger('mouseleave');
     /*$('#brushSize').css('font-size', size.toString()+'px');*/
 
   }
@@ -341,7 +341,7 @@ $("#pencil").mouseup(function(){
   
     
   if (canvas.freeDrawingBrush) {
-    canvas.freeDrawingBrush.color = dom('drawingcolor').value;
+    canvas.freeDrawingBrush.color = "black";//dom('drawingcolor').value;
     canvas.freeDrawingBrush.width = parseInt(dom('drawing-line-width').value, 10) || 1;
   }
       
