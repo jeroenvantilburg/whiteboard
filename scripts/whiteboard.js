@@ -163,11 +163,11 @@ fabric.Object.prototype.padding = 10;
 
   function setDeleteMode( flag ) {
     deleteMode = flag;
-    if( deleteMode ) dom('pointer').innerHTML = "Delete";
+    if( deleteMode ) dom('pointer').innerHTML = "<i class='fa fa-trash'></i>";
     else {
       //canvas.deactivateAll();//, 
       canvas.discardActiveObject().renderAll();
-      dom('pointer').innerHTML = "Pointer";
+      dom('pointer').innerHTML = "<i class='fa fa-mouse-pointer'></i>";
     }
   }
   
@@ -213,7 +213,22 @@ fabric.Object.prototype.padding = 10;
     setDeleteMode(false);
     canvas.freeDrawingCursor = 'crosshair';
     cursor.remove(mousecursor);
-  };    
+  };
+
+var pressTimer;
+$("#pencil").mouseup(function(){
+  clearTimeout(pressTimer);
+  dom("dropdown-pencil").style.display = "none";
+  // Clear timeout
+  return false;
+}).mousedown(function(){
+  // Set timeout
+  pressTimer = window.setTimeout(function() { 
+    //alert("long press");
+    dom("dropdown-pencil").style.display = "block";
+  },500);
+  return false; 
+});
 
   dom('eraser').onclick = function() { 
     canvas.isDrawingMode = false;

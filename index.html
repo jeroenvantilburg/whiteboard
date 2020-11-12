@@ -20,6 +20,8 @@
   <link rel="icon" sizes="128x128" href="favicon.icns">
   <link rel="icon" href="favicon.png" type="image/x-icon"-->
   <link rel="stylesheet" type="text/css" href="style.css" media="screen,projection" />
+  <!--link href="css/fontawesome.min.css" rel="stylesheet"-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <base target="_blank">
 </head>
 <body>
@@ -48,18 +50,24 @@
     <div class="column left">
   
   <div style="display: inline-block; margin-left: 10px"-->
-    <button id="dragmode" class="btn btn-info" style="background-image: url(img/mouse_move.png);
-                                                      background-size: 100%;"></button>
-    <button id="pointer" class="btn btn-info">Select</button>
-    <button id="pencil" class="btn btn-info">Pencil</button>
+    <!--button id="dragmode" class="btn btn-info" style="background-image: url(img/mouse_move.png);
+                                                      background-size: 100%;"></button-->
+    <button id="dragmode" class="btn btn-info"><i class="fa fa-hand-rock-o"></i></button>
+    <button id="pointer" class="btn btn-info"><i class="fa fa-mouse-pointer"></i></button>
+
+    <div class="dropdown" > 
+    <button id="pencil" class="btn btn-info"><i class="fa fa-pencil"></i></button>
+          <div class="dropdown-content" id="dropdown-pencil">
 
     <!--label class="btn" for="drawing-line-width">Width:</label-->
     <!--span class="btn info">3</span-->
-    <input type="range" value="3" min="0" max="10" id="drawing-line-width" class="btn slider">
+    <input type="range" value="3" min="0" max="10" id="drawing-line-width" class="btn slider" style="">
 
     <!--label for="drawing-color">Color:</label-->
     <input class="btn" type="color" value="#000000" id="drawing-color">
 
+      </div>
+  </div>
     <button id="black" class="btn color" style="background-color:black"></button>
     <button id="red" class="btn color" style="background-color:red"></button>
     <button id="green" class="btn color" style="background-color:green"></button>
@@ -67,10 +75,10 @@
     <button id="yellow" class="btn color" style="background-color:yellow"></button>
     <button id="white" class="btn color" style="background-color:white"></button>
 
-    <button id="eraser" class="btn btn-info">Eraser</button>
-    <button id="clear-canvas" class="btn btn-info">Clear</button>
-    <button id="undo" class="btn btn-info">Undo</button>
-    <button id="redo" class="btn btn-info">Redo</button>
+    <button id="eraser" class="btn btn-info"><i class="fa fa-eraser"></i></button>
+    <button id="clear-canvas" class="btn btn-info"><i class="fa fa-times"></i></button>
+    <button id="undo" class="btn btn-info"><i class="fa fa-undo"></i></button>
+    <button id="redo" class="btn btn-info"><i class="fa fa-repeat"></i></button>
 
     <!--label for="background">Background</label-->
     <button id="blackBkg" class="btn bkg" id="background" style="background-color:black"></button>
@@ -78,9 +86,9 @@
     <button id="blackBkgR" class="btn"><img src="img/zwart_rooster_klein.png" width="25" height="25" ></button>
     <button id="whiteBkgR" class="btn"><img src="img/wit_rooster_klein.png" width="25" height="25" ></button>
 
-  <input type="button" class="btn" onclick="screenshot(this)" value="Screenshot" />
+  <!--input type="button" class="btn" onclick="screenshot(this)" value="shot"></input-->
 
-    <!--a href="" class="btn button" onclick="screenshot(this)">Screen shot</a-->
+    <a href="" class="btn button" onclick="screenshot(this)"><i class="fa fa-download"></i></a>
   
   <!--/div>
 

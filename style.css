@@ -3,22 +3,15 @@ html, body, div, canvas {
     padding: 0;
 }
 
-/*.column { }
-.left {float: left; width:360px;}
-.right {}
-.row:after {content: ""; display: table; clear: both; }*/
-/* Responsive layout - makes the two columns stack on top of each other instead of next to each other */
-/*@media screen and (max-width: 1275px) { .left { width: 100%; } .right {max-width: 500px} }*/
-
-
 .btn {
   padding: 0px 0px;
   margin: 6px 3px;
-  width: 40px;
+  width: 30px;
   height: 30px;
   display: block ;
   z-index : 1;
   position:relative;
+  font-size: 25px;
 }
 
 .color {
@@ -26,7 +19,7 @@ html, body, div, canvas {
   width: 25px;
   height: 25px;
   padding: 0px 0px;
-  margin: 5px 3px;
+  margin: 3px 5px;
   border-style: solid;
   border-width: 1px;
 }
@@ -46,14 +39,48 @@ html, body, div, canvas {
   width: 50px; /* Full-width */
 }
 
-/*a.button {
+a.button {
   -webkit-appearance: button;
   -moz-appearance: button;
   appearance: button;
-  width: 40px;
-  height: 40px;
-  text-decoration: none;
-  color: initial;
-  font-family: Arial;
-  font-size: 12px;
+  color: black;
+  padding: 0px 3px;
+  width: 24px;
+  height: 30px;
+}
+
+
+/* The dropdown container */
+.dropdown {
+  /*float: left;
+  overflow: hidden;*/
+  display: block;
+}
+
+/* Dropdown button */
+/*.dropdown .dropbtn {
+  font-size: 14px; 
+  border: none;
+  outline: none;
+  padding: 17px 16px;
+  background-color: inherit;
+  font-family: inherit; 
+  margin: 0; 
+}
+*/
+/* Add a grey background color to navbar links on hover */
+/*.navbar a:hover, .dropdown:hover .dropbtn {
+  background-color: #ddd;
 }*/
+
+/* Dropdown content (hidden by default) */
+.dropdown-content {
+  display: none;
+  /*position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;*/
+}
+
+/*.dropdown:hover .dropdown-content {display: block;}*/
