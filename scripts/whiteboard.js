@@ -206,13 +206,18 @@ fabric.Object.prototype.padding = 10;
     //}
   };
 
-  dom('pencil').onclick = function() {
+
+
+  function setDrawingMode() {
     canvas.isDrawingMode = true;
-    //canvas.toggleDragMode(false);    
     dragMode = false;
     setDeleteMode(false);
     canvas.freeDrawingCursor = 'crosshair';
     cursor.remove(mousecursor);
+  }
+
+  dom('pencil').onclick = function() {
+    setDrawingMode();
   };
 
 /*var pressTimer;
@@ -251,7 +256,6 @@ $("#pencil").mouseup(function(){
 
   dom('eraser').onclick = function() { 
     setErasingMode();
-
     canvas.renderAll();
   };
 
@@ -369,30 +373,13 @@ dom('white').onclick = function() { setBrushColor("white") };
   // Event listener: remove the element
   canvas.on('mouse:up', function(e) {
     mouseDown = false;
-  });
-
-  canvas.on('mouse:move', function (evt) {
-	  var mouse = this.getPointer(evt.e);
-    //console.log("Move mouse");
-    if( mousecursor.canvas ) {
-      mousecursor
-        .set({
-          top: mouse.y,
-          left: mouse.x
-         })
-        .setCoords()
-	      .canvas.renderAll();
-      if( mouseDown ) {
-        erasing(mouse);
-      }
-    } 
-    if (dragMode && mouseDown ) {
-      //console.log(evt.e.type);
-      //console.log(evt.e);
-      moveCanvas( evt.e );
+    if( erasingOnTouch ){
+      setDrawingMode();
+      erasingOnTouch = false;
     }
   });
-  
+
+  var erasingOnTouch = false;
   canvas.on('mouse:down', function (evt) {
     //console.log("Mouse down");
 
@@ -414,10 +401,34 @@ dom('white').onclick = function() { setBrushColor("white") };
       if( touchRadius > 20 ) {
         //alert("Large radius detected");
         setErasingMode();
+        erasingOnTouch = true;
       }
     }
   });
   
+  canvas.on('mouse:move', function (evt) {
+	  var mouse = this.getPointer(evt.e);
+    //console.log("Move mouse");
+    if( mousecursor.canvas ) {
+      mousecursor
+        .set({
+          top: mouse.y,
+          left: mouse.x
+         })
+        .setCoords()
+	      .canvas.renderAll();
+      if( mouseDown ) {
+        erasing(mouse);
+      }
+    } 
+    if (dragMode && mouseDown ) {
+      //console.log(evt.e.type);
+      //console.log(evt.e);
+      moveCanvas( evt.e );
+    }
+  });
+
+
   canvas.on('selection:created', function(e) {
     setDeleteMode(true);
   });
