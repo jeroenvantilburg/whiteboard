@@ -379,7 +379,6 @@ dom('white').onclick = function() { setBrushColor("white") };
     }
   });
 
-  var erasingOnTouch = false;
   canvas.on('mouse:down', function (evt) {
     //console.log("Mouse down");
 
@@ -395,7 +394,13 @@ dom('white').onclick = function() { setBrushColor("white") };
         lastClientX = evt.e.touches[0].clientX;
         lastClientY = evt.e.touches[0].clientY;
       }
-    } else if( canvas.isDrawingMode && evt.e.type == "touchstart" ){
+    }
+  });
+
+  var erasingOnTouch = false;
+  canvas.on('mouse:down:before', function (evt) {
+    //console.log("Mouse down");
+    if( canvas.isDrawingMode && evt.e.type == "touchstart" ){
       var touchRadius = Math.sqrt(Math.pow(evt.e.touches[0].radiusX,2) + 
                                   Math.pow(evt.e.touches[0].radiusY,2));
       if( touchRadius > 20 ) {
@@ -405,7 +410,7 @@ dom('white').onclick = function() { setBrushColor("white") };
       }
     }
   });
-  
+
   canvas.on('mouse:move', function (evt) {
 	  var mouse = this.getPointer(evt.e);
     //console.log("Move mouse");
