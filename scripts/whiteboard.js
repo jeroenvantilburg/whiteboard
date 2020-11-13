@@ -231,14 +231,18 @@ $("#pencil").mouseup(function(){
 });
 */
 
-  dom('eraser').onclick = function() { 
+  function setErasingMode() {
     canvas.isDrawingMode = false;
-    canvas.selection = false;
     canvas.hoverCursor = 'none';
     canvas.moveCursor = 'none';
     canvas.defaultCursor = 'none';
     cursor.add(mousecursor);
-    //canvas.toggleDragMode(false);
+  }
+
+  dom('eraser').onclick = function() { 
+    setErasingMode();
+
+    canvas.selection = false;
     dragMode = false;
     setDeleteMode(false);
     
@@ -248,10 +252,11 @@ $("#pencil").mouseup(function(){
     fabric.Object.prototype.hasControls = false;
     fabric.Object.prototype.hasBorders = false;
     canvas.renderAll();
-
-    
   };
-  
+
+
+
+
   /*dom('drawingcolor').onchange = function() {
     var brush = canvas.freeDrawingBrush;
     brush.color = this.value;
@@ -291,10 +296,10 @@ $("#pencil").mouseup(function(){
     //dom("brushcolor").style.color = "white";
   };
   
-  dom('drawing-line-width').onchange = function() {
+  /*dom('drawing-line-width').onchange = function() {
     canvas.freeDrawingBrush.width = parseInt(this.value, 10) || 1;
     //this.previousSibling.innerHTML = this.value;
-  };
+  };*/
 
   function setBrushSize(size) {
     canvas.freeDrawingBrush.width = size;
@@ -342,7 +347,7 @@ $("#pencil").mouseup(function(){
     
   if (canvas.freeDrawingBrush) {
     canvas.freeDrawingBrush.color = "black";//dom('drawingcolor').value;
-    canvas.freeDrawingBrush.width = parseInt(dom('drawing-line-width').value, 10) || 1;
+    canvas.freeDrawingBrush.width = 3;//parseInt(dom('drawing-line-width').value, 10) || 1;
   }
       
   
@@ -413,8 +418,8 @@ $("#pencil").mouseup(function(){
     //console.log("Mouse down");
 
     mouseDown = true;
-	  var mouse = this.getPointer(evt.e);
     if( mousecursor.canvas ) {
+      var mouse = this.getPointer(evt.e);
       erasing( mouse );
     } else if( dragMode ) {
       if( evt.e.type == "mousedown") {
@@ -424,9 +429,14 @@ $("#pencil").mouseup(function(){
         lastClientX = evt.e.touches[0].clientX;
         lastClientY = evt.e.touches[0].clientY;
       }
+    } else if( canvas.isDrawingMode && evt.e.type == "touchstart" ){
+      var touchRadius = Math.sqrt(Math.pow(evt.e.touches[0].radiusX,2) + 
+                                  Math.pow(evt.e.touches[0].radiusY,2));
+      if( touchRadius > 10 ) {
+        alert("Large radius detected");
+        setErasingMode();
+      }
     }
-    
-    
   });
   
   canvas.on('selection:created', function(e) {
@@ -436,8 +446,6 @@ $("#pencil").mouseup(function(){
   canvas.on('selection:cleared', function(e) {    
     setDeleteMode(false);
   });
-
-
     
   canvas.on('mouse:out', function () {
     if( mousecursor.canvas ) {
@@ -452,6 +460,20 @@ $("#pencil").mouseup(function(){
     }
   });
 
+  // dropdown menus
+  var sizeHidden = true;
+  dom("dropdownSize").onclick = function() {
+    dom("dropdownSize-content").style.display = (sizeHidden) ? "block" : "none";
+    sizeHidden = !sizeHidden;
+  }
+  var bkgHidden = true;
+  dom("dropdownBkg").onclick = function() {
+    dom("dropdownBkg-content").style.display = (bkgHidden) ? "block" : "none";
+    bkgHidden = !bkgHidden;
+  }
+
+
+  
   
   // Make a screenshot
   function screenshot(htmlElement) {
