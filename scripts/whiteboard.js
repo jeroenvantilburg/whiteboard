@@ -236,11 +236,12 @@ $("#pencil").mouseup(function(){
 });
 */
 
-  function setErasingMode() {
+  function setErasingMode( radius = 25 ) {
     canvas.isDrawingMode = false;
     canvas.hoverCursor = 'none';
     canvas.moveCursor = 'none';
     canvas.defaultCursor = 'none';
+    mousecursor.radius = radius;
     cursor.add(mousecursor);
     canvas.selection = false;
     dragMode = false;
@@ -405,7 +406,7 @@ dom('white').onclick = function() { setBrushColor("white") };
                                   Math.pow(evt.e.touches[0].radiusY,2));
       if( touchRadius > 20 ) {
         //alert("Large radius detected");
-        setErasingMode();
+        setErasingMode( radius );
         erasingOnTouch = true;
       }
     }
