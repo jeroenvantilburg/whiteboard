@@ -237,11 +237,6 @@ $("#pencil").mouseup(function(){
     canvas.moveCursor = 'none';
     canvas.defaultCursor = 'none';
     cursor.add(mousecursor);
-  }
-
-  dom('eraser').onclick = function() { 
-    setErasingMode();
-
     canvas.selection = false;
     dragMode = false;
     setDeleteMode(false);
@@ -251,6 +246,12 @@ $("#pencil").mouseup(function(){
 
     fabric.Object.prototype.hasControls = false;
     fabric.Object.prototype.hasBorders = false;
+
+  }
+
+  dom('eraser').onclick = function() { 
+    setErasingMode();
+
     canvas.renderAll();
   };
 
@@ -264,57 +265,35 @@ $("#pencil").mouseup(function(){
     //console.log(this.value)
   };*/
 
-  dom('black').onclick = function() { 
-    canvas.freeDrawingBrush.color = "black";
-    //dom('drawingcolor').value = "#000000";
-    //dom("brushcolor").style.color = "black";
-  };
-  dom('red').onclick = function() { 
-    canvas.freeDrawingBrush.color = "red";
-    //dom('drawingcolor').value = "#FF0000";
-    //dom("brushcolor").style.color = "red";
-  };
-  dom('green').onclick = function() { 
-    canvas.freeDrawingBrush.color = "green";
-    //console.log(canvas.freeDrawingBrush.color)
-    //dom('drawingcolor').value = "#008000";
-    //dom("brushcolor").style.color = "green";
-  };
-  dom('blue').onclick = function() { 
-    canvas.freeDrawingBrush.color = "blue";
-    //dom('drawingcolor').value = "#0000FF";
-    //dom("brushcolor").style.color = "blue";
-  };
-  dom('yellow').onclick = function() { 
-    canvas.freeDrawingBrush.color = "yellow";
-    //dom('drawingcolor').value = "#FFFF00";
-    //dom("brushcolor").style.color = "yellow";
-  };
-  dom('white').onclick = function() { 
-    canvas.freeDrawingBrush.color = "white";
-    //dom('drawingcolor').value = "#FFFFFF";
-    //dom("brushcolor").style.color = "white";
-  };
-  
-  /*dom('drawing-line-width').onchange = function() {
-    canvas.freeDrawingBrush.width = parseInt(this.value, 10) || 1;
-    //this.previousSibling.innerHTML = this.value;
-  };*/
+function setBrushColor( color ) {
+  canvas.freeDrawingBrush.color = color;
+  $('#brushSize').css('color', color );
+}
 
-  function setBrushSize(size) {
+dom('black').onclick = function() { setBrushColor("black") };
+dom('red').onclick = function() { setBrushColor("red") };
+dom('green').onclick = function() { setBrushColor("green") };
+dom('blue').onclick = function() { setBrushColor("blue") };
+dom('yellow').onclick = function() { setBrushColor("yellow") };
+dom('white').onclick = function() { setBrushColor("white") };
+
+  function setBrushSize(size, domElement) {
     canvas.freeDrawingBrush.width = size;
+    console.log(domElement);
+    console.log(domElement.style.fontSize);
+    //dom("brushSize").style.fontSize = domElement.style.fontSize;
     //$('.dropdown-content').css('display','none');
-    $('.dropdown').trigger('mouseleave');
-    /*$('#brushSize').css('font-size', size.toString()+'px');*/
+    //$('.dropdown').trigger('mouseleave');
+    $('#brushSize').css('font-size', domElement.style.fontSize );
 
   }
 
-  dom('size1').onclick = function() { setBrushSize(1); };
-  dom('size2').onclick = function() { setBrushSize(2); };
-  dom('size3').onclick = function() { setBrushSize(3); };
-  dom('size4').onclick = function() { setBrushSize(4); };
-  dom('size5').onclick = function() { setBrushSize(5); };
-  dom('size6').onclick = function() { setBrushSize(6); };
+  dom('size1').onclick = function() { setBrushSize(1,this); };
+  dom('size2').onclick = function() { setBrushSize(2,this); };
+  dom('size3').onclick = function() { setBrushSize(3,this); };
+  dom('size4').onclick = function() { setBrushSize(4,this); };
+  dom('size5').onclick = function() { setBrushSize(5,this); };
+  dom('size6').onclick = function() { setBrushSize(6,this); };
 
   dom('blackBkg').onclick = function() { 
     canvas.backgroundColor = "black";
@@ -432,8 +411,8 @@ $("#pencil").mouseup(function(){
     } else if( canvas.isDrawingMode && evt.e.type == "touchstart" ){
       var touchRadius = Math.sqrt(Math.pow(evt.e.touches[0].radiusX,2) + 
                                   Math.pow(evt.e.touches[0].radiusY,2));
-      if( touchRadius > 10 ) {
-        alert("Large radius detected");
+      if( touchRadius > 20 ) {
+        //alert("Large radius detected");
         setErasingMode();
       }
     }

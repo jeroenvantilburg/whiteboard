@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Online whiteboard</title>
+  <title>Whiteboard</title>
   <meta charset="UTF-8">
-  <meta name="description" content="Online whiteboard">
-  <meta name="keywords" content="whiteboard, drawing, smartboard, online, activepanel, paint, touchscreen">
+  <meta name="description" content="Whiteboard">
+  <meta name="keywords" content="online whiteboard, drawing, smartboard, online, activepanel, paint, touchscreen">
   <meta name="author" content="Jeroen van Tilburg">
   <meta name="viewport" content="width=930">
   <!--meta property="og:image" content="https://jeroenvantilburg.nl/whiteboard/screenshot.png" /-->
@@ -20,105 +20,75 @@
   <link rel="icon" sizes="128x128" href="favicon.icns">
   <link rel="icon" href="favicon.png" type="image/x-icon"-->
   <link rel="stylesheet" type="text/css" href="style.css" media="screen,projection" />
-  <!--link href="css/fontawesome.min.css" rel="stylesheet"-->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <base target="_blank">
 </head>
-<body>
-  
-     <div id="canvas1" style="position:absolute;width:100px;height:100px;top:0px;">
-      <canvas id="c" width="100" height="100" style="border:1px solid #ccc;
-                                                     position: absolute!important;
-                                                     left: 0!important;
-                                                     top: 0!important;
-                                                     width: 100%!important;
-                                                     height: 100%!important;">
+<body> 
+  <div id="canvas1" style="position:absolute;width:100px;height:100px;top:0px;">
+    <canvas id="c" width="100" height="100" style="border:1px solid #ccc;
+                                                   position: absolute!important;
+                                                   left: 0!important;
+                                                   top: 0!important;
+                                                   width: 100%!important;
+                                                   height: 100%!important;">
         Your browser does not support HTML5 Canvas.
-      </canvas>
-      <canvas id="cursor" width="100" height="100" style="border:1px solid #ccc; 
-                                                           position: absolute!important;
-                                                           left: 0!important;
-                                                           top: 0!important;
-                                                           width: 100%!important;
-                                                           height: 100%!important;
-                                                           pointer-events: none!important;">
-     </canvas>
-   </div>
-
-
-  <!--div class="row">
-    <div class="column left">
-  
-  <div style="display: inline-block; margin-left: 10px"-->
-    <!--button id="dragmode" class="btn btn-info" style="background-image: url(img/mouse_move.png);
-                                                      background-size: 100%;"></button-->
-    <button id="dragmode" class="btn btn-info"><i class="fa fa-hand-rock-o"></i></button>
-    <button id="pointer" class="btn btn-info"><i class="fa fa-mouse-pointer"></i></button>
-
-    <button id="pencil" class="btn btn-info"><i class="fa fa-pencil"></i></button>
-
-    <!--label class="btn" for="drawing-line-width">Width:</label-->
-    <!--span class="btn info">3</span-->
-    <div id="dropdownSize"  style="display: block;"> 
-      <button id="brushSize" class="btn2 btn-info" style="margin-left: 3px"><i class="fa fa-circle"></i></button>
-      <div id="dropdownSize-content" style="display: none;">
-        <button id="size1" class="btn2 btn-info" style="font-size: 3px;"><i class="fa fa-circle"></i></button>
-        <button id="size2" class="btn2 btn-info" style="font-size: 5px;"><i class="fa fa-circle"></i></button>      
-        <button id="size3" class="btn2 btn-info" style="font-size: 7px;"><i class="fa fa-circle"></i></button>      
-        <button id="size4" class="btn2 btn-info" style="font-size: 9px;"><i class="fa fa-circle"></i></button>      
-        <button id="size5" class="btn2 btn-info" style="font-size: 11px;"><i class="fa fa-circle"></i></button>      
-        <button id="size6" class="btn2 btn-info" style="font-size: 13px;"><i class="fa fa-circle"></i></button>      
-      </div>
-    </div>
-    <!--input type="range" value="3" min="0" max="10" id="drawing-line-width" class="btn slider" style="visibility: hidden;"-->
-     <button id="dummy" class="btn btn-info" style="visibility: hidden;"></button>      
-
-
-
-
-    <!--label id="brushcolor" class="btn btn-info"><i class="fa fa-paint-brush"></i>
-      <input class="btn" type="color" value="#000000" id="drawingcolor" style="visibility: hidden;">
-    </label-->
-
-
-    <button id="black" class="btn color" style="background-color:black"></button>
-    <button id="red" class="btn color" style="background-color:red"></button>
-    <button id="green" class="btn color" style="background-color:green"></button>
-    <button id="blue" class="btn color" style="background-color:blue"></button>
-    <button id="yellow" class="btn color" style="background-color:yellow"></button>
-    <button id="white" class="btn color" style="background-color:white"></button>
-
-    <button id="eraser" class="btn btn-info"><i class="fa fa-eraser"></i></button>
-    <button id="clear-canvas" class="btn btn-info"><i class="fa fa-times"></i></button>
-    <button id="undo" class="btn btn-info"><i class="fa fa-undo"></i></button>
-    <button id="redo" class="btn btn-info"><i class="fa fa-repeat"></i></button>
-
-    <!--label for="background">Background</label-->
-    <div id="dropdownBkg"  style="display: block;"> 
-      <button class="btn2 bkg" style="margin-left: 3px"><img src="img/wit_rooster_klein.png" width="25" height="25" ></button>
-      <div id="dropdownBkg-content" style="display: none;">
-      <button id="blackBkg" class="btn2 bkg" style="background-color:black; margin-left: 3px"></button>
-      <button id="whiteBkg" class="btn2 bkg" style="background-color:white"></button>
-      <button id="blackBkgR" class="btn2"><img src="img/zwart_rooster_klein.png" width="25" height="25" ></button>
-      <button id="whiteBkgR" class="btn2"><img src="img/wit_rooster_klein.png" width="25" height="25" ></button>
-      </div>
-    </div>
-     <button id="dummy" class="btn btn-info" style="visibility: hidden;"></button>      
-
-
-
-  <!--input type="button" class="btn" onclick="screenshot(this)" value="shot"></input-->
-
-    <a href="" class="btn button" onclick="screenshot(this)"><i class="fa fa-file-image-o"></i></a>
-  
-  <!--/div>
-
+    </canvas>
+    <canvas id="cursor" width="100" height="100" style="border:1px solid #ccc; 
+                                                        position: absolute!important;
+                                                        left: 0!important;
+                                                        top: 0!important;
+                                                        width: 100%!important;
+                                                        height: 100%!important;
+                                                        pointer-events: none!important;">
+    </canvas>
   </div>
-  <div class="column right"-->
 
-  <!--/div>
-</div-->
+  <button id="dragmode" class="btn"><i class="fa fa-hand-rock-o"></i></button>
+  <button id="pointer" class="btn"><i class="fa fa-mouse-pointer"></i></button>
+  <button id="pencil" class="btn"><i class="fa fa-pencil"></i></button>
+  <div id="dropdownSize"  style="display: block;"> 
+    <button id="brushSize" class="btn2 first"><i class="fa fa-circle"></i></button>
+    <div id="dropdownSize-content" style="display: none;">
+      <button id="size1" class="btn2" style="font-size: 3px;"><i class="fa fa-circle"></i></button>
+      <button id="size2" class="btn2" style="font-size: 5px;"><i class="fa fa-circle"></i></button>
+      <button id="size3" class="btn2" style="font-size: 7px;"><i class="fa fa-circle"></i></button>
+      <button id="size4" class="btn2" style="font-size: 9px;"><i class="fa fa-circle"></i></button>
+      <button id="size5" class="btn2" style="font-size: 11px;"><i class="fa fa-circle"></i></button> 
+      <button id="size6" class="btn2" style="font-size: 13px;"><i class="fa fa-circle"></i></button>     
+    </div>
+  </div>
+  <button id="dummy" class="btn" style="visibility: hidden;"></button>      
 
+  <button id="black" class="btn color black"></button>
+  <button id="red" class="btn color red"></button>
+  <button id="green" class="btn color green"></button>
+  <button id="blue" class="btn color blue"></button>
+  <button id="yellow" class="btn color yellow"></button>
+  <button id="white" class="btn color white"></button>
+
+  <button id="eraser" class="btn"><i class="fa fa-eraser"></i></button>
+  <button id="clear-canvas" class="btn"><i class="fa fa-times"></i></button>
+  <button id="undo" class="btn"><i class="fa fa-undo"></i></button>
+  <button id="redo" class="btn"><i class="fa fa-repeat"></i></button>
+
+  <div id="dropdownBkg"  style="display: block;"> 
+    <button class="btn2 bkg first">
+      <img src="img/wit_rooster_klein.png" width="25" height="25" >
+    </button>
+    <div id="dropdownBkg-content" style="display: none;">
+      <button id="blackBkg" class="btn2 bkg black"></button>
+      <button id="whiteBkg" class="btn2 bkg white"></button>
+      <button id="blackBkgR" class="btn2">
+        <img src="img/zwart_rooster_klein.png" width="25" height="25" >
+      </button>
+      <button id="whiteBkgR" class="btn2">
+        <img src="img/wit_rooster_klein.png" width="25" height="25" >
+      </button>
+    </div>
+  </div>
+  <button id="dummy" class="btn button" style="visibility: hidden;"></button>      
+
+  <a href="" class="btn button" onclick="screenshot(this)"><i class="fa fa-file-image-o"></i></a>
 
   <script src="scripts/fabric.min.js"></script>
   <script src="scripts/jquery-3.5.0.min.js"></script>
