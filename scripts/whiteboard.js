@@ -406,7 +406,7 @@ dom('white').onclick = function() { setBrushColor("white") };
                                   Math.pow(evt.e.touches[0].radiusY,2));
       if( touchRadius > 20 ) {
         //alert("Large radius detected");
-        setErasingMode( radius );
+        setErasingMode( touchRadius );
         erasingOnTouch = true;
       }
     }
