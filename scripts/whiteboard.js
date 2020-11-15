@@ -430,9 +430,13 @@ dom('white').onclick = function() { setBrushColor("white") };
 	  var mouse = this.getPointer(evt.e);
     if( evt.e.type == "touchmove" ) {
       mouse = this.getPointer( evt.e.touches[0] );
+
     }
     //console.log("Move mouse");
     if( mousecursor.canvas ) {
+      console.log(mouse.x);
+
+
       mousecursor
         .set({
           top: mouse.y,
