@@ -254,6 +254,7 @@ $("#pencil").mouseup(function(){
     mousecursor.ry = radiusY;
     cursor.add(mousecursor);
     cursor.renderAll();
+    console.log("Erasing mode"+mousecursor.rx.toString()+ " " + mousecursor.ry.toString());
     canvas.selection = false;
     dragMode = false;
     setDeleteMode(false);
