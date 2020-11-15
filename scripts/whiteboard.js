@@ -243,6 +243,7 @@ $("#pencil").mouseup(function(){
     canvas.defaultCursor = 'none';
     mousecursor.radius = radius;
     cursor.add(mousecursor);
+    cursor.renderAll();
     canvas.selection = false;
     dragMode = false;
     setDeleteMode(false);
