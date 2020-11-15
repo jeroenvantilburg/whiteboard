@@ -132,7 +132,11 @@ SOFTWARE.
   }
   
   // When clicking on the buttons
-  dom('clear-canvas').onclick = function() { canvas.clear() };
+  dom('clear-canvas').onclick = function() { 
+    if ( confirm("Are you sure to remove everthing?") ) {
+      canvas.clear();
+    }
+  };
 
   dom('dragmode').onclick = function() {
     canvas.isDrawingMode = false;
