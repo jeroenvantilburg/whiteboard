@@ -81,8 +81,11 @@ fabric.Object.prototype.padding = 10;
         var point = { x: path[i][1], y: path[i][2] };
         //if( Math.abs(mouseP.x-point.x) < mousecursor.radius/object.scaleX &&
         //    Math.abs(mouseP.y-point.y) < mousecursor.radius/object.scaleY ) {
-        if( Math.abs(mouseP.x-point.x) < mousecursor.rx/object.scaleX &&
-            Math.abs(mouseP.y-point.y) < mousecursor.ry/object.scaleY ) {
+        //if( Math.abs(mouseP.x-point.x) < mousecursor.rx/object.scaleX &&
+        //    Math.abs(mouseP.y-point.y) < mousecursor.ry/object.scaleY ) {
+        if( Math.pow((mouseP.x-point.x)/(mousecursor.rx/object.scaleX),2)+
+            Math.pow((mouseP.y-point.y)/(mousecursor.ry/object.scaleY),2) <= 1.0 ) {
+
           path[i][0]="M";          
           if( i == 0 && path.length > 1 ) {
             path[i+1][0] = "M";
