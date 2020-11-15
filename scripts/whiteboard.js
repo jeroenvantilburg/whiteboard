@@ -384,7 +384,7 @@ dom('white').onclick = function() { setBrushColor("white") };
 
   
   // Event listener: remove the element
-  canvas.on('mouse:up', function(e) {
+  canvas.on('mouse:up:before', function(e) {
     mouseDown = false;
     if( erasingOnTouch ){
       setDrawingMode();
@@ -428,6 +428,9 @@ dom('white').onclick = function() { setBrushColor("white") };
 
   canvas.on('mouse:move', function (evt) {
 	  var mouse = this.getPointer(evt.e);
+    if( evt.e.type == "touchmove" ) {
+      mouse = this.getPointer( evt.e.touches[0] );
+    }
     //console.log("Move mouse");
     if( mousecursor.canvas ) {
       mousecursor
@@ -468,6 +471,12 @@ dom('white').onclick = function() { setBrushColor("white") };
        .setCoords()
        .canvas.renderAll();
     }
+    mouseDown = false;
+    if( erasingOnTouch ){
+      setDrawingMode();
+      erasingOnTouch = false;
+    }
+
   });
 
   // dropdown menus
