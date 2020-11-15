@@ -45,10 +45,13 @@ fabric.Object.prototype.padding = 10;
   // Eraser stuff
   var cursor = new fabric.StaticCanvas("cursor");
   var cursorOpacity = 0.5;
-  var mousecursor = new fabric.Circle({ 
+  //var mousecursor = new fabric.Circle({ 
+  var mousecursor = new fabric.Ellipse({ 
     left: -100, 
     top: -100, 
-    radius: 25, 
+    //radius: 25, 
+    rx: 25, 
+    ry: 25, 
     fill: "rgba(80,80,80," + cursorOpacity + ")", 
     strokeWidth: 0,
     stroke: "black",
@@ -76,8 +79,10 @@ fabric.Object.prototype.padding = 10;
       
       for( i = 0; i < path.length; ++i) {
         var point = { x: path[i][1], y: path[i][2] };
-        if( Math.abs(mouseP.x-point.x) < mousecursor.radius/object.scaleX &&
-            Math.abs(mouseP.y-point.y) < mousecursor.radius/object.scaleY ) {
+        //if( Math.abs(mouseP.x-point.x) < mousecursor.radius/object.scaleX &&
+        //    Math.abs(mouseP.y-point.y) < mousecursor.radius/object.scaleY ) {
+        if( Math.abs(mouseP.x-point.x) < mousecursor.rx/object.scaleX &&
+            Math.abs(mouseP.y-point.y) < mousecursor.ry/object.scaleY ) {
           path[i][0]="M";          
           if( i == 0 && path.length > 1 ) {
             path[i+1][0] = "M";
@@ -236,12 +241,14 @@ $("#pencil").mouseup(function(){
 });
 */
 
-  function setErasingMode( radius = 25 ) {
+  function setErasingMode( radiusX = 25, radiusY = radiusX ) {
     canvas.isDrawingMode = false;
     canvas.hoverCursor = 'none';
     canvas.moveCursor = 'none';
     canvas.defaultCursor = 'none';
-    mousecursor.radius = radius;
+    //mousecursor.radius = radius;
+    mousecursor.rx = radiusX;
+    mousecursor.ry = radiusY;
     cursor.add(mousecursor);
     cursor.renderAll();
     canvas.selection = false;
@@ -403,11 +410,13 @@ dom('white').onclick = function() { setBrushColor("white") };
   canvas.on('mouse:down:before', function (evt) {
     //console.log("Mouse down");
     if( canvas.isDrawingMode && evt.e.type == "touchstart" ){
-      var touchRadius = Math.sqrt(Math.pow(evt.e.touches[0].radiusX,2) + 
-                                  Math.pow(evt.e.touches[0].radiusY,2));
-      if( touchRadius > 20 ) {
+      //var touchRadius = Math.sqrt(Math.pow(evt.e.touches[0].radiusX,2) + 
+      //                            Math.pow(evt.e.touches[0].radiusY,2));
+      //if( touchRadius > 20 ) {
+      if( evt.e.touches[0].radiusX > 25 || evt.e.touches[0].radiusY > 25 ) {
         //alert("Large radius detected");
-        setErasingMode( touchRadius );
+        //setErasingMode( touchRadius );
+        setErasingMode( evt.e.touches[0].radiusX. evt.e.touches[0].radiusY );
         erasingOnTouch = true;
       }
     }
