@@ -416,7 +416,7 @@ dom('white').onclick = function() { setBrushColor("white") };
       if( evt.e.touches[0].radiusX > 25 || evt.e.touches[0].radiusY > 25 ) {
         //alert("Large radius detected");
         //setErasingMode( touchRadius );
-        setErasingMode( evt.e.touches[0].radiusX. evt.e.touches[0].radiusY );
+        setErasingMode( evt.e.touches[0].radiusX, evt.e.touches[0].radiusY );
         erasingOnTouch = true;
       }
     }
