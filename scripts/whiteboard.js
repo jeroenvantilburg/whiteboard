@@ -43,6 +43,7 @@ SOFTWARE.
   
   var mouseDown = false;  
   var deleteMode = false;
+  var dragMode = false;
 
   // Eraser stuff
   var cursor = new fabric.StaticCanvas("cursor");
@@ -95,6 +96,7 @@ SOFTWARE.
   }  
   // end eraser
 
+  // Dragging (moving) the entire canvas
   var isMoving = false;
   function moveCanvas( evt ) {
     if( isMoving == false ) {
@@ -129,8 +131,7 @@ SOFTWARE.
     }
   }
   
-  let dragMode = false;
-  
+  // When clicking on the buttons
   dom('clear-canvas').onclick = function() { canvas.clear() };
 
   dom('dragmode').onclick = function() {
@@ -152,6 +153,7 @@ SOFTWARE.
     canvas.renderAll();
   }
 
+  // In selection mode, selected objects can be deleted with one-click
   function setDeleteMode( flag ) {
     deleteMode = flag;
     if( deleteMode ) dom('pointer').innerHTML = "<i class='fa fa-trash'></i>";
@@ -161,6 +163,7 @@ SOFTWARE.
     }
   }
   
+  // Selection mode: aka pointer
   dom('pointer').onclick = function() {
     // Delete the selection
     if( deleteMode ) {
@@ -190,6 +193,7 @@ SOFTWARE.
     fabric.Object.prototype.hasBorders = true;
   };
 
+  // Drawing mode (default)
   function setDrawingMode() {
     canvas.isDrawingMode = true;
     dragMode = false;
@@ -197,11 +201,11 @@ SOFTWARE.
     canvas.freeDrawingCursor = 'crosshair';
     cursor.remove(mousecursor);
   }
-
   dom('pencil').onclick = function() {
     setDrawingMode();
   };
 
+  // Erasing mode (also gets trigger when touching large area)
   function setErasingMode( radiusX = 25, radiusY = radiusX ) {
     canvas.isDrawingMode = false;
     canvas.hoverCursor = 'none';
@@ -222,7 +226,6 @@ SOFTWARE.
     fabric.Object.prototype.hasBorders = false;
 
   }
-
   dom('eraser').onclick = function() { 
     setErasingMode();
     canvas.renderAll();
@@ -275,7 +278,7 @@ SOFTWARE.
     });  
   };
     
-  // Undo and reduo functions
+  // Undo and redo functions
   dom('undo').onclick = function() { 
     var canvas_objects = canvas._objects;
     if(canvas_objects.length !== 0){
