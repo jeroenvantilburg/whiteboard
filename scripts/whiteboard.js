@@ -254,7 +254,7 @@ $("#pencil").mouseup(function(){
     mousecursor.ry = radiusY;
     cursor.add(mousecursor);
     cursor.renderAll();
-    console.log("Erasing mode"+mousecursor.rx.toString()+ " " + mousecursor.ry.toString());
+    //console.log("Erasing mode"+mousecursor.rx.toString()+ " " + mousecursor.ry.toString());
     canvas.selection = false;
     dragMode = false;
     setDeleteMode(false);
@@ -296,8 +296,8 @@ dom('white').onclick = function() { setBrushColor("white") };
 
   function setBrushSize(size, domElement) {
     canvas.freeDrawingBrush.width = size;
-    console.log(domElement);
-    console.log(domElement.style.fontSize);
+    //console.log(domElement);
+    //console.log(domElement.style.fontSize);
     //dom("brushSize").style.fontSize = domElement.style.fontSize;
     //$('.dropdown-content').css('display','none');
     //$('.dropdown').trigger('mouseleave');
@@ -434,7 +434,7 @@ dom('white').onclick = function() { setBrushColor("white") };
     }
     //console.log("Move mouse");
     if( mousecursor.canvas ) {
-      console.log(mouse.x);
+      //console.log(mouse.x);
 
 
       mousecursor
