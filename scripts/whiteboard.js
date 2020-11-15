@@ -22,48 +22,41 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
   
-//(function() {
+// All code runs in this anonymous function
+// to avoid cluttering the global variables
+(function() {
 
-var dom = function(id){return document.getElementById(id)};
+  var dom = function(id){return document.getElementById(id)};
   
-var canvas = this.__canvas = new fabric.Canvas('c', {
+  var canvas = this.__canvas = new fabric.Canvas('c', {
     backgroundColor: 'white',
     isDrawingMode: true,
-    redoList: []
-});
+    redoList: [], 
+  });
 
-var mouseDown = false;  
-var deleteMode = false;
-
+  fabric.Object.prototype.transparentCorners = false;
+  fabric.Object.prototype.hasControls = false;
+  fabric.Object.prototype.hasBorders = false;
+  fabric.Object.prototype.padding = 10;
+  canvas.freeDrawingBrush.color = "black";
+  canvas.freeDrawingBrush.width = 3;
   
-fabric.Object.prototype.transparentCorners = false;
-fabric.Object.prototype.hasControls = false;
-fabric.Object.prototype.hasBorders = false;
-fabric.Object.prototype.padding = 10;
+  var mouseDown = false;  
+  var deleteMode = false;
 
-  
   // Eraser stuff
   var cursor = new fabric.StaticCanvas("cursor");
   var cursorOpacity = 0.5;
-  //var mousecursor = new fabric.Circle({ 
   var mousecursor = new fabric.Ellipse({ 
-    left: -100, 
-    top: -100, 
-    //radius: 25, 
-    rx: 25, 
-    ry: 25, 
+    left: -100, top: -100, rx: 25, ry: 25, 
     fill: "rgba(80,80,80," + cursorOpacity + ")", 
-    strokeWidth: 0,
-    stroke: "black",
-    originX: 'center', 
-    originY: 'center'
+    strokeWidth: 0, stroke: "black",
+    originX: 'center', originY: 'center'
   });
     
   function erasing(mouse){
     let objects = canvas.getObjects(); 
     objects.forEach(object=>{
-      
-      //console.log(object);
       
       var path = object.path;
       object.setCoords();
@@ -79,10 +72,6 @@ fabric.Object.prototype.padding = 10;
       
       for( i = 0; i < path.length; ++i) {
         var point = { x: path[i][1], y: path[i][2] };
-        //if( Math.abs(mouseP.x-point.x) < mousecursor.radius/object.scaleX &&
-        //    Math.abs(mouseP.y-point.y) < mousecursor.radius/object.scaleY ) {
-        //if( Math.abs(mouseP.x-point.x) < mousecursor.rx/object.scaleX &&
-        //    Math.abs(mouseP.y-point.y) < mousecursor.ry/object.scaleY ) {
         if( Math.pow((mouseP.x-point.x)/(mousecursor.rx/object.scaleX),2)+
             Math.pow((mouseP.y-point.y)/(mousecursor.ry/object.scaleY),2) <= 1.0 ) {
 
@@ -110,36 +99,34 @@ fabric.Object.prototype.padding = 10;
   function moveCanvas( evt ) {
     if( isMoving == false ) {
       isMoving = true;
-    //console.log("Move canvas");
-    // Calculate deltas
-        let deltaX = 0; var x = 0;
-        let deltaY = 0; var y = 0;
-        if( evt.type == "mousemove" ) {
-          x = evt.clientX;
-          y = evt.clientY;
-        } else if( evt.type == "touchmove") {
-          x = evt.touches[0].clientX;
-          y = evt.touches[0].clientY;
-        }
+      // Calculate deltas
+      let deltaX = 0; var x = 0;
+      let deltaY = 0; var y = 0;
+      if( evt.type == "mousemove" ) {
+        x = evt.clientX;
+        y = evt.clientY;
+      } else if( evt.type == "touchmove") {
+        x = evt.touches[0].clientX;
+        y = evt.touches[0].clientY;
+      }
       
-        if (lastClientX) {
-          deltaX = x - lastClientX;
-        }
-        if (lastClientY) {
-          deltaY = y - lastClientY;
-        }
-        // Update the last X and Y values
-        lastClientX = x; //evt.clientX;
-        lastClientY = y; //evt.clientY;
+      if (lastClientX) {
+        deltaX = x - lastClientX;
+      }
+      if (lastClientY) {
+        deltaY = y - lastClientY;
+      }
+      // Update the last X and Y values
+      lastClientX = x; 
+      lastClientY = y; 
 
-        let delta = new fabric.Point(deltaX, deltaY);
-        canvas.relativePan(delta);
-        canvas.trigger('moved');
-        cursor.relativePan(delta);
-        cursor.trigger('moved');
+      let delta = new fabric.Point(deltaX, deltaY);
+      canvas.relativePan(delta);
+      canvas.trigger('moved');
+      cursor.relativePan(delta);
+      cursor.trigger('moved');
       isMoving = false;
     }
-
   }
   
   let dragMode = false;
@@ -147,7 +134,6 @@ fabric.Object.prototype.padding = 10;
   dom('clear-canvas').onclick = function() { canvas.clear() };
 
   dom('dragmode').onclick = function() {
-    //canvas.toggleDragMode(true);
     canvas.isDrawingMode = false;
     canvas.selection = false;
     dragMode = true;
@@ -164,23 +150,18 @@ fabric.Object.prototype.padding = 10;
     fabric.Object.prototype.hasControls = false;
     fabric.Object.prototype.hasBorders = false;
     canvas.renderAll();
-
-
   }
-
 
   function setDeleteMode( flag ) {
     deleteMode = flag;
     if( deleteMode ) dom('pointer').innerHTML = "<i class='fa fa-trash'></i>";
     else {
-      //canvas.deactivateAll();//, 
       canvas.discardActiveObject().renderAll();
       dom('pointer').innerHTML = "<i class='fa fa-mouse-pointer'></i>";
     }
   }
   
   dom('pointer').onclick = function() {
-
     // Delete the selection
     if( deleteMode ) {
       
@@ -192,7 +173,6 @@ fabric.Object.prototype.padding = 10;
       setDeleteMode(false);
     }
 
-
     canvas.isDrawingMode = false;
     canvas.hoverCursor = 'hover';
     canvas.moveCursor = 'move';
@@ -203,18 +183,12 @@ fabric.Object.prototype.padding = 10;
 
     
     cursor.remove(mousecursor);
-    //canvas.toggleDragMode(false);
     dragMode = false;
     
 
     fabric.Object.prototype.hasControls = true;
     fabric.Object.prototype.hasBorders = true;
-    //if (canvas.isDrawingMode) {
-    //  dom('pointer').innerHTML = 'Pointer';
-    //}
   };
-
-
 
   function setDrawingMode() {
     canvas.isDrawingMode = true;
@@ -228,33 +202,15 @@ fabric.Object.prototype.padding = 10;
     setDrawingMode();
   };
 
-/*var pressTimer;
-$("#pencil").mouseup(function(){
-  clearTimeout(pressTimer);
-  dom("dropdown-pencil").style.display = "none";
-  // Clear timeout
-  return false;
-}).mousedown(function(){
-  // Set timeout
-  pressTimer = window.setTimeout(function() { 
-    //alert("long press");
-    dom("dropdown-pencil").style.display = "block";
-  },500);
-  return false; 
-});
-*/
-
   function setErasingMode( radiusX = 25, radiusY = radiusX ) {
     canvas.isDrawingMode = false;
     canvas.hoverCursor = 'none';
     canvas.moveCursor = 'none';
     canvas.defaultCursor = 'none';
-    //mousecursor.radius = radius;
     mousecursor.rx = radiusX;
     mousecursor.ry = radiusY;
     cursor.add(mousecursor);
     cursor.renderAll();
-    //console.log("Erasing mode"+mousecursor.rx.toString()+ " " + mousecursor.ry.toString());
     canvas.selection = false;
     dragMode = false;
     setDeleteMode(false);
@@ -272,39 +228,23 @@ $("#pencil").mouseup(function(){
     canvas.renderAll();
   };
 
+  // Change color of brush
+  function setBrushColor( color ) {
+    canvas.freeDrawingBrush.color = color;
+    $('#brushSize').css('color', color );
+  }
+  dom('black').onclick = function() { setBrushColor("black") };
+  dom('red').onclick = function() { setBrushColor("red") };
+  dom('green').onclick = function() { setBrushColor("green") };
+  dom('blue').onclick = function() { setBrushColor("blue") };
+  dom('yellow').onclick = function() { setBrushColor("yellow") };
+  dom('white').onclick = function() { setBrushColor("white") };
 
-
-
-  /*dom('drawingcolor').onchange = function() {
-    var brush = canvas.freeDrawingBrush;
-    brush.color = this.value;
-    //dom("brushcolor").style.color = this.value;
-    //console.log(this.value)
-  };*/
-
-function setBrushColor( color ) {
-  canvas.freeDrawingBrush.color = color;
-  $('#brushSize').css('color', color );
-}
-
-dom('black').onclick = function() { setBrushColor("black") };
-dom('red').onclick = function() { setBrushColor("red") };
-dom('green').onclick = function() { setBrushColor("green") };
-dom('blue').onclick = function() { setBrushColor("blue") };
-dom('yellow').onclick = function() { setBrushColor("yellow") };
-dom('white').onclick = function() { setBrushColor("white") };
-
+  // Change size of brush
   function setBrushSize(size, domElement) {
     canvas.freeDrawingBrush.width = size;
-    //console.log(domElement);
-    //console.log(domElement.style.fontSize);
-    //dom("brushSize").style.fontSize = domElement.style.fontSize;
-    //$('.dropdown-content').css('display','none');
-    //$('.dropdown').trigger('mouseleave');
     $('#brushSize').css('font-size', domElement.style.fontSize );
-
   }
-
   dom('size1').onclick = function() { setBrushSize(1,this); };
   dom('size2').onclick = function() { setBrushSize(2,this); };
   dom('size3').onclick = function() { setBrushSize(3,this); };
@@ -312,6 +252,7 @@ dom('white').onclick = function() { setBrushColor("white") };
   dom('size5').onclick = function() { setBrushSize(5,this); };
   dom('size6').onclick = function() { setBrushSize(6,this); };
 
+  // Change background
   dom('blackBkg').onclick = function() { 
     canvas.backgroundColor = "black";
     canvas.renderAll();
@@ -331,22 +272,10 @@ dom('white').onclick = function() { setBrushColor("white") };
     var src = 'img/wit_rooster_klein.png';
     canvas.setBackgroundColor({source: src, repeat: 'repeat'}, function () {
       canvas.renderAll();
-    });
-  
+    });  
   };
-
-
-
-
-
-  
     
-  if (canvas.freeDrawingBrush) {
-    canvas.freeDrawingBrush.color = "black";//dom('drawingcolor').value;
-    canvas.freeDrawingBrush.width = 3;//parseInt(dom('drawing-line-width').value, 10) || 1;
-  }
-      
-  
+  // Undo and reduo functions
   dom('undo').onclick = function() { 
     var canvas_objects = canvas._objects;
     if(canvas_objects.length !== 0){
@@ -356,16 +285,13 @@ dom('white').onclick = function() { setBrushColor("white") };
       canvas.renderAll();
     }
   }
-
   dom('redo').onclick = function() { 
-    //var canvas_objects = canvas._objects;
     if(canvas.redoList.length !== 0){
       var last = canvas.redoList[canvas.redoList.length -1]; //Get last object
       canvas.add(last);
       canvas.renderAll();
     }
   }
-
   // update the redo-list
   canvas.on('object:added', function(e) {
     if(canvas.redoList.length !== 0){
@@ -381,7 +307,6 @@ dom('white').onclick = function() { setBrushColor("white") };
   // Remember the previous X and Y coordinates for delta calculations
   let lastClientX;
   let lastClientY;
-
   
   // Event listener: remove the element
   canvas.on('mouse:up:before', function(e) {
@@ -393,8 +318,6 @@ dom('white').onclick = function() { setBrushColor("white") };
   });
 
   canvas.on('mouse:down', function (evt) {
-    //console.log("Mouse down");
-
     mouseDown = true;
     if( mousecursor.canvas ) {
       var mouse = this.getPointer(evt.e);
@@ -412,14 +335,8 @@ dom('white').onclick = function() { setBrushColor("white") };
 
   var erasingOnTouch = false;
   canvas.on('mouse:down:before', function (evt) {
-    //console.log("Mouse down");
     if( canvas.isDrawingMode && evt.e.type == "touchstart" ){
-      //var touchRadius = Math.sqrt(Math.pow(evt.e.touches[0].radiusX,2) + 
-      //                            Math.pow(evt.e.touches[0].radiusY,2));
-      //if( touchRadius > 20 ) {
       if( evt.e.touches[0].radiusX > 25 || evt.e.touches[0].radiusY > 25 ) {
-        //alert("Large radius detected");
-        //setErasingMode( touchRadius );
         setErasingMode( evt.e.touches[0].radiusX, evt.e.touches[0].radiusY );
         erasingOnTouch = true;
       }
@@ -432,11 +349,7 @@ dom('white').onclick = function() { setBrushColor("white") };
       mouse = this.getPointer( evt.e.touches[0] );
 
     }
-    //console.log("Move mouse");
     if( mousecursor.canvas ) {
-      //console.log(mouse.x);
-
-
       mousecursor
         .set({
           top: mouse.y,
@@ -449,8 +362,6 @@ dom('white').onclick = function() { setBrushColor("white") };
       }
     } 
     if (dragMode && mouseDown ) {
-      //console.log(evt.e.type);
-      //console.log(evt.e);
       moveCanvas( evt.e );
     }
   });
@@ -495,10 +406,8 @@ dom('white').onclick = function() { setBrushColor("white") };
     bkgHidden = !bkgHidden;
   }
 
-
-  
-  
   // Make a screenshot
+  dom('screenshot').onclick = function() { screenshot( this ); };
   function screenshot(htmlElement) {
     var image = canvas.toDataURL({format: 'png', multiplier: 2});  
     htmlElement.setAttribute("download","screenshot.png");
@@ -533,4 +442,4 @@ dom('white').onclick = function() { setBrushColor("white") };
     resizeCanvas();
   });
 
-//})();
+})();

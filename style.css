@@ -3,6 +3,20 @@ html, body, div, canvas {
     padding: 0;
 }
 
+
+canvas {
+  border:1px solid #ccc;
+  position: absolute!important;                                                 
+  left: 0!important;                                                 
+  top: 0!important;                                                
+  width: 100px;                                                 
+  height: 100px;
+}
+
+span {
+  margin: 0px 0px;
+  font-size: 13px;
+}
 .btn {
   padding: 0px 0px;
   margin: 6px 3px;
