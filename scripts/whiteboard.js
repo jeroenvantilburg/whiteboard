@@ -315,13 +315,13 @@ SOFTWARE.
   let lastClientX;
   let lastClientY;
   
-  // Event listener: remove the element
+  // Event listener
   canvas.on('mouse:up:before', function(e) {
     mouseDown = false;
-    if( erasingOnTouch ){
+    /*if( erasingOnTouch ){
       setDrawingMode();
       erasingOnTouch = false;
-    }
+    }*/
   });
 
   canvas.on('mouse:down', function (evt) {
@@ -340,13 +340,14 @@ SOFTWARE.
     }
   });
 
-  var erasingOnTouch = false;
+  //var erasingOnTouch = false;
   canvas.on('mouse:down:before', function (evt) {
     if( canvas.isDrawingMode && evt.e.type == "touchstart" ){
-      if( evt.e.touches[0].radiusX > 25 || evt.e.touches[0].radiusY > 25 ) {
+      console.log(evt.e.touches);
+      /*if( evt.e.touches[0].radiusX > 25 || evt.e.touches[0].radiusY > 25 ) {
         setErasingMode( evt.e.touches[0].radiusX, evt.e.touches[0].radiusY );
         erasingOnTouch = true;
-      }
+      }*/
     }
   });
 
@@ -394,10 +395,10 @@ SOFTWARE.
        .canvas.renderAll();
     }
     mouseDown = false;
-    if( erasingOnTouch ){
+    /*if( erasingOnTouch ){
       setDrawingMode();
       erasingOnTouch = false;
-    }
+    }*/
 
   });
 
