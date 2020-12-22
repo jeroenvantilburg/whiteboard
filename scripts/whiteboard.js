@@ -209,7 +209,7 @@ SOFTWARE.
     setDrawingMode();
   };
 
-  // Erasing mode (also gets trigger when touching large area)
+  // Erasing mode
   function setErasingMode( radiusX = 25, radiusY = radiusX ) {
     canvas.isDrawingMode = false;
     canvas.hoverCursor = 'none';
@@ -316,8 +316,20 @@ SOFTWARE.
   let lastClientY;
   
   // Event listener
-  canvas.on('mouse:up:before', function(e) {
+  canvas.on('mouse:up', function(e) {
     mouseDown = false;
+    
+    if( evt.e.type == "touchend" && mousecursor.canvas ) {
+      // put circle off screen
+      mousecursor
+        .set({
+          top: -10000, 
+          left: -10000 
+        })
+       .setCoords()
+       .canvas.renderAll();
+    }
+
     /*if( erasingOnTouch ){
       setDrawingMode();
       erasingOnTouch = false;
@@ -341,15 +353,15 @@ SOFTWARE.
   });
 
   //var erasingOnTouch = false;
-  canvas.on('mouse:down:before', function (evt) {
+  /*canvas.on('mouse:down:before', function (evt) {
     if( canvas.isDrawingMode && evt.e.type == "touchstart" ){
       console.log(evt.e.touches);
-      /*if( evt.e.touches[0].radiusX > 25 || evt.e.touches[0].radiusY > 25 ) {
+      if( evt.e.touches[0].radiusX > 25 || evt.e.touches[0].radiusY > 25 ) {
         setErasingMode( evt.e.touches[0].radiusX, evt.e.touches[0].radiusY );
         erasingOnTouch = true;
-      }*/
+      }
     }
-  });
+  });*/
 
   canvas.on('mouse:move', function (evt) {
 	  var mouse = this.getPointer(evt.e);
