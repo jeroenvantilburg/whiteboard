@@ -316,7 +316,7 @@ SOFTWARE.
   let lastClientY;
   
   // Event listener
-  canvas.on('mouse:up', function(e) {
+  canvas.on('mouse:up', function(evt) {
     mouseDown = false;
     
     if( evt.e.type == "touchend" && mousecursor.canvas ) {
