@@ -1,4 +1,4 @@
-var CACHE_NAME = 'motionticker-cache-v1';
+var CACHE_NAME = 'whiteboard-cache-v1';
 var CURRENT_CACHES = CACHE_NAME;
 var urlsToCache = [
   './',
