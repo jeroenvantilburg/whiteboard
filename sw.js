@@ -9,6 +9,7 @@ var urlsToCache = [
   'scripts/jquery-3.5.0.min.js',
   'scripts/whiteboard.js',
   'scripts/registerSW.js',
+  'sw.js',
   'img/wit_rooster_klein.png',
   'img/zwart_rooster_klein.png',
   'apple-touch-icon.png',
