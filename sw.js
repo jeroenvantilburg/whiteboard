@@ -10,6 +10,7 @@ var urlsToCache = [
   'scripts/whiteboard.js',
   'scripts/registerSW.js',
   'sw.js',
+  'site.webmanifest',
   'img/wit_rooster_klein.png',
   'img/zwart_rooster_klein.png',
   'apple-touch-icon.png',
