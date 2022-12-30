@@ -20,7 +20,8 @@ var urlsToCache = [
   'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/fonts/fontawesome-webfont.ttf',
   'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/fonts/fontawesome-webfont.woff',
   'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/fonts/fontawesome-webfont.woff2',
-  'mstile-70x70.png'
+  'mstile-70x70.png',
+  'android-chrome-192x192.png'
 ];
 
 self.addEventListener('install', function(event) {
